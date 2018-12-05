@@ -1,5 +1,5 @@
 Vagrant.configure("2") do |config|
-  config.vm.define "bxDistro-ub1804-3" do |guest|
+  config.vm.define "{vmName}" do |guest|
     guest.vm.box = "peru/ubuntu-18.04-desktop-amd64"
     guest.vm.box_version = "20181001.01"
     guest.vm.hostname = "bxDistro-ub1804-3"
@@ -23,12 +23,50 @@ Vagrant.configure("2") do |config|
     end
 
     ## SHELL PROVISIONING
-    guest.vm.provision "shell", inline: <<-SHELL
-      echo "
-            ## STAGE 1: CREATE bxgenesis
-      "
+    guest.vm.provision "shell", inline: <<-_EOF_MainRootShell_
+      cat  << _EOF_
+ ######### PHASE 0: Parameters Specification
+_EOF_
+      genesisUserName=bxgenesis
+      genesisUserGroup=bxgenesis
+      genesisUserPasswd=bxPasswd
+      genesisGitRepoCloneCmnd="git clone xxx"
+      genesisGitRepoEntryCmnd="./xx/yy
+
+      cat  << _EOF_
+ ######### PAHSE 1: Create bxgenesis User -- Running As Root
+_EOF_
+
+      sudo useradd i2user
+      echo ${genesisUserPasswd} | sudo -S passwd i2user --stdin
+      echo ${genesisUserPasswd} | sudo -S passwd root --stdin
+      sudo usermod -aG wheel i2user
+      sudo echo 'i2user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+      cat  << _EOF_
+ ######### PHASE 2: Bring Over genesisClone -- Running As ${genesisUserName}
+_EOF_
+
+      sudo apt install git
+
+      sudo -u ${genesisUserName} /usr/bin/bash << _EOF_genessisUserName_
+
+      cd ~${genesisUserName}
+      mkdir -p ~${genesisUserName}/gitRepos
+      cd ~${genesisUserName}/gitRepos
+      ${genesisGitRepoCloneCmnd}
+
+      ${genesisGitRepoEntryCmnd}
+
+_EOF_genessisUserName_
+
+      cat  << _EOF_
+ ######### PHASE 3: Cleanup and Shutdown  -- Running As Root
+_EOF_
+      
       shutdown now
       exit 0
-SHELL
+
+_EOF_MainRootShell_
   end
 end
