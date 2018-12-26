@@ -1,8 +1,8 @@
 Vagrant.configure("2") do |config|
   config.vm.define "{vmName}" do |guest|
     guest.vm.box = "peru/ubuntu-18.04-desktop-amd64"
-    guest.vm.box_version = "20181001.01"
-    guest.vm.hostname = "bxDistro-ub1804-3"
+    #guest.vm.box_version = "20181001.01"
+    guest.vm.hostname = "{vmName}"
     guest.vm.provider :virtualbox do |vb|
       # Visual Basic GUI (NOT used to configure guest's Xwindows setup)
       #vb.gui = true
