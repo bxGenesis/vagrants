@@ -1,9 +1,9 @@
       cat  << _EOF_
  ######### PHASE 0: Parameters Specification
 _EOF_
-      genesisUserName=bxgenesis
-      genesisUserGroup=bxgenesis
-      genesisUserPasswd=bxPasswd
+      genesisUserName=vagrant
+      genesisUserGroup=vagrant
+      genesisUserPasswd=vagrant
       genesisGitRepoCloneCmnd="git clone xxx"
       genesisGitRepoEntryCmnd="./xx/yy"
 
@@ -11,11 +11,11 @@ _EOF_
  ######### PAHSE 1: Create bxgenesis User -- Running As Root
 _EOF_
 
-      sudo useradd i2user
-      echo $genesisUserPasswd | sudo -S passwd i2user --stdin
-      echo $genesisUserPasswd | sudo -S passwd root --stdin
-      sudo usermod -aG wheel i2user
-      sudo echo 'i2user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+      # sudo useradd i2user
+      # echo $genesisUserPasswd | sudo -S passwd i2user --stdin
+      # echo $genesisUserPasswd | sudo -S passwd root --stdin
+      # sudo usermod -aG wheel i2user
+      # sudo echo 'i2user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
       cat  << _EOF_
  ######### PHASE 2: Bring Over genesisClone -- Running As $genesisUserName
@@ -28,9 +28,9 @@ _EOF_
       cd ~$genesisUserName
       mkdir -p ~$genesisUserName/gitRepos
       cd ~$genesisUserName/gitRepos
-      $genesisGitRepoCloneCmnd
+      #$genesisGitRepoCloneCmnd
 
-      $genesisGitRepoEntryCmnd
+      #$genesisGitRepoEntryCmnd
 
 _EOF_genessisUserName_
 
