@@ -20,7 +20,7 @@ _EOF_
       # sudo usermod -aG wheel i2user
       # sudo echo 'i2user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-      sudo apt install git
+      sudo apt-get -y  install git
 
       sudo mkdir -p $bxBootstrapBase
       sudo chown $genesisUserName:$genesisUserGroup $bxBootstrapBase
@@ -32,13 +32,18 @@ _EOF_
 
       sudo -u $genesisUserName $bashPath << _EOF_genessisUserName_
 
+      (set -x; id)
+
       mkdir -p $bxBootstrapBase/gitRepos
-      cd $bxBootstrapBase/gitRepos
+      ls -ld $bxBootstrapBase/gitRepos
 
-      #cd ~$genesisUserName/gitRepos
-      #$genesisGitRepoCloneCmnd
+      ( set -x; cd $bxBootstrapBase/gitRepos; eval pwd ; eval
 
-      #$genesisGitRepoEntryCmnd
+      echo $PWD )
+
+      ( set -x; cd $bxBootstrapBase/gitRepos; $genesisGitRepoCloneCmnd )
+
+      ( set -x; cd $bxBootstrapBase/gitRepos; $genesisGitRepoEntryCmnd )
 
 _EOF_genessisUserName_
 
