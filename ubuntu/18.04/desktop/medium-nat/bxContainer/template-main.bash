@@ -7,8 +7,8 @@ _EOF_
       bashPath=$(which bash)
       bxBootstrapBase="/var/bxBootstrap"
       
-      genesisGitRepoCloneCmnd="git clone xxx"
-      genesisGitRepoEntryCmnd="./xx/yy"
+      genesisGitRepoCloneCmnd="{sysProvisionerObtain}"
+      genesisGitRepoEntryCmnd="{sysProvisionerRun}"
 
       cat  << _EOF_
  ######### PAHSE 1: Create bxgenesis User -- Running As Root
