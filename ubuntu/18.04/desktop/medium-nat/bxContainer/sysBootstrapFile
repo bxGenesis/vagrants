@@ -1,21 +1,14 @@
       cat  << _EOF_
  ######### PHASE 0: Parameters Specification
 _EOF_
-
       genesisUserName=$(id -u -n)
-      if [ $genesisUserName == "root" ] ; then
-	  genesisUserName="vagrant"
-      fi
       genesisUserGroup=$(id -g -n)
-      if [ $genesisUserGroup == "root" ] ; then
-	  genesisUserGroup="vagrant"
-      fi
       genesisUserPasswd=vagrant
       bashPath=$(which bash)
       bxBootstrapBase="/var/bxBootstrap"
       
-      genesisGitRepoCloneCmnd="{sysProvisionerObtain}"
-      genesisGitRepoEntryCmnd="{sysProvisionerRun}"
+      genesisGitRepoCloneCmnd="git clone https://github.com/bxGenesis/provisioners.git"
+      genesisGitRepoEntryCmnd="./provisioners/bin/bashIcmExample.sh -i examples"
 
       cat  << _EOF_
  ######### PAHSE 1: Updating And Installing Distro Pkgs 
@@ -36,6 +29,8 @@ _EOF_
       id
 
       sudo -u $genesisUserName id
+      sudo -u $genesisUserName git init
+
 
       sudo -u $genesisUserName mkdir -p $bxBootstrapBase/gitRepos
       
@@ -45,7 +40,14 @@ _EOF_
 
       sudo -u $genesisUserName -- sh -c  "cd $bxBootstrapBase/gitRepos; $genesisGitRepoEntryCmnd"
 
+      sudo apt-get -y install python-minimal
       
+      sudo -H pip install --no-cache-dir --upgrade pip
+      sudo -H pip install --no-cache-dir --upgrade virtualenv
+      sudo -H pip install --no-cache-dir --upgrade bisos.bx-bases
+
+      sudo -H pip list
+
       
       cat  << _EOF_
  ######### PHASE 3: Cleanup and Shutdown  -- Running As Root
@@ -53,3 +55,4 @@ _EOF_
       
       #shutdown now
       #exit 0
+
