@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
     guest.vm.box = "peru/ubuntu-18.04-desktop-amd64"
     guest.vm.hostname = "{vmName}"
     guest.vm.provider :virtualbox do |vb|
-      vb.memory = "1024"		  
+      vb.memory = "1024"                  
     end
 
     ## SHELL PROVISIONING

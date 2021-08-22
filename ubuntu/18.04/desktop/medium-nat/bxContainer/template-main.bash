@@ -4,11 +4,11 @@ _EOF_
 
       genesisUserName=$(id -u -n)
       if [ $genesisUserName == "root" ] ; then
-	  genesisUserName="vagrant"
+          genesisUserName="vagrant"
       fi
       genesisUserGroup=$(id -g -n)
       if [ $genesisUserGroup == "root" ] ; then
-	  genesisUserGroup="vagrant"
+          genesisUserGroup="vagrant"
       fi
       genesisUserPasswd=vagrant
       bashPath=$(which bash)
